@@ -59,6 +59,7 @@ export default function SignupForm({ onSwitchToLogin }: Props) {
       {error && <p className="text-red-600 text-center">{error}</p>}
       <p className="text-center mt-4 text-gray-700">
         Already have an account?{' '}
+        
         <button
           type="button"
           onClick={onSwitchToLogin}

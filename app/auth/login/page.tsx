@@ -23,9 +23,14 @@ export default function LoginForm({ onSwitchToSignup }: Props) {
       } else {
         setError('Invalid credentials');
       }
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
-    }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError('Signup failed');
+  }
+}
+
   }
 
   return (
@@ -57,7 +62,10 @@ export default function LoginForm({ onSwitchToSignup }: Props) {
       {error && <p className="text-red-600 text-center mt-2">{error}</p>}
 
       <p className="text-center mt-4 text-gray-700">
-        Don't have an account?{' '}
+     
+        Don&apos;t have an account?{' '}
+      
+
         <button
           type="button"
           onClick={onSwitchToSignup}
