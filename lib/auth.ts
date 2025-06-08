@@ -1,6 +1,7 @@
 'use server'
 
-import { prisma } from './prisma'
+// import { prisma } from './prisma'
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs'
 
 export async function createUser({
