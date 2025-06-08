@@ -14,17 +14,14 @@
 //     htmlPages: previews.map((p) => p.htmlContent),
 //   })
 // }
-interface RouteParams {
-  params: {
-    sessionId: string
-  }
-}
+import { prisma } from '@/lib/prisma'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: RouteParams
+  context: any // ✅ simplest fix
 ) {
-  const { sessionId } = params
+  const sessionId = context.params.sessionId
 
   if (!sessionId) {
     return new NextResponse('Session ID not found', { status: 400 })
