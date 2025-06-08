@@ -14,17 +14,19 @@
 //     htmlPages: previews.map((p) => p.htmlContent),
 //   })
 // }
+// app/api/preview/[sessionId]/route.ts
+
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  context
 ) {
-  const sessionId = params.sessionId
+  const sessionId = context.params.sessionId
 
   if (!sessionId) {
-    return new NextResponse('Session ID not found', { status: 400 })
+    return NextResponse.json({ error: 'Missing session ID' }, { status: 400 })
   }
 
   const messages = await prisma.message.findMany({
