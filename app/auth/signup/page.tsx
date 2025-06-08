@@ -19,9 +19,14 @@ export default function SignupForm({ onSwitchToLogin }: Props) {
       // Show success and switch to login form
       alert('Signup successful! Please log in.');
       onSwitchToLogin();
-    } catch (err: any) {
-      setError(err.message || 'Signup failed');
-    }
+    }  catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message || 'Signup failed');
+  } else {
+    setError('Signup failed');
+  }
+}
+
   }
 
   return (
