@@ -16,15 +16,16 @@
 // }
 import { prisma } from '@/lib/prisma'
 import { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  context: { params: { sessionId: string } }
 ) {
-  const sessionId = params.sessionId
+  const sessionId = context.params.sessionId
 
   if (!sessionId) {
-    return new Response('Session ID not found', { status: 400 })
+    return new NextResponse('Session ID not found', { status: 400 })
   }
 
   const messages = await prisma.message.findMany({
@@ -32,5 +33,5 @@ export async function GET(
     orderBy: { createdAt: 'asc' },
   })
 
-  return Response.json({ messages })
+  return NextResponse.json({ messages })
 }
