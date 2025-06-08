@@ -19,9 +19,9 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
-): Promise<NextResponse> {
-  const sessionId = params.sessionId
+  context: any // ✅ simplest fix
+) {
+  const sessionId = context.params.sessionId
 
   if (!sessionId) {
     return new NextResponse('Session ID not found', { status: 400 })
