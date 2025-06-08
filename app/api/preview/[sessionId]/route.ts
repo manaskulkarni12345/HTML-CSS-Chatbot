@@ -15,14 +15,13 @@
 //   })
 // }
 import { prisma } from '@/lib/prisma'
-import { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  context: { params: { sessionId: string } }
-) {
-  const sessionId = context.params.sessionId
+  { params }: { params: { sessionId: string } }
+): Promise<NextResponse> {
+  const sessionId = params.sessionId
 
   if (!sessionId) {
     return new NextResponse('Session ID not found', { status: 400 })
