@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import LoginForm from '@/app/auth/login/page';
-import SignupForm from '@/app/auth/signup/page';
+// import LoginForm from '@/app/auth/login/page';
+// import SignupForm from '@/app/auth/signup/page';
+import LoginForm from '@/components/LoginForm';
+import SignupForm from '@/components/SignupForm';
+
 
 export default function HomePage() {
   const [showSignup, setShowSignup] = useState(false);
