@@ -34,7 +34,9 @@
 //     );
 //   }
 // }
+
 import { PrismaClient } from '@prisma/client';
+
 
 async function testConnection() {
   const prisma = new PrismaClient();
