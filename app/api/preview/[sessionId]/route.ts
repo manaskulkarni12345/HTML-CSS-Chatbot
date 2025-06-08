@@ -36,23 +36,35 @@
 
 //   return NextResponse.json({ messages })
 // }
+// app/api/preview/[sessionId]/route.ts
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+// Define the params type explicitly for Next.js 15
+type RouteParams = {
+  params: Promise<{ sessionId: string }>
+}
+
 export async function GET(
   req: NextRequest,
-  context: { params: { sessionId: string } }
+  { params }: RouteParams
 ) {
-  const sessionId = context.params.sessionId
+  // Await the params object in Next.js 15
+  const { sessionId } = await params
 
   if (!sessionId) {
     return NextResponse.json({ error: 'Missing session ID' }, { status: 400 })
   }
 
-  const messages = await prisma.message.findMany({
-    where: { chatSessionId: sessionId },
-    orderBy: { createdAt: 'asc' },
-  })
+  try {
+    const messages = await prisma.message.findMany({
+      where: { chatSessionId: sessionId },
+      orderBy: { createdAt: 'asc' },
+    })
 
-  return NextResponse.json({ messages })
+    return NextResponse.json({ messages })
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    return NextResponse.json({ error: 'Failed to fetch messages' }, { status: 500 });
+  }
 }

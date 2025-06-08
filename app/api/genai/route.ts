@@ -6,12 +6,12 @@ export async function POST(req: Request | NextRequest) {
     const { prompt, sessionId } = await req.json()
 
     let session = sessionId && sessionId.length > 0
-  ? await prisma.chatSession.findUnique({ where: { id: sessionId } })
-  : null
+        ? await prisma.chatSession.findUnique({ where: { id: sessionId } })
+        : null
 
-if (!session) {
-  session = await prisma.chatSession.create({ data: {} })
-}
+    if (!session) {
+        session = await prisma.chatSession.create({ data: {} })
+    }
 
     // Store the user's prompt
     await prisma.message.create({
